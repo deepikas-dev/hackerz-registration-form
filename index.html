@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hackerz 2k26 Registration</title>
+<style>
+/* ================= GLOBAL STYLES ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+body{
+    background:#0f2027;
+    color:white;
+    overflow-x:hidden;
+}
+.logo-container{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.logo{
+    width: clamp(220px, 40vw, 320px);
+    height: auto;
+    transition: 0.4s ease;
+}
+.logo:hover{
+    transform: scale(1.08);
+}
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+/* ================= HEADINGS ================= */
+h1,h2{
+    text-align:center;
+    margin-bottom:15px;
+    color:#00ffff;
+}
+p{
+    text-align:center;
+    margin-bottom:20px;
+    color:#ddd;
+    line-height:1.6;
+}
+/* ================= EVENT BOX ================= */
+.event-box{
+    background: rgba(0,255,255,0.06);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,255,255,0.4);
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.event-box:hover{
+    transform: scale(1.03);
+    box-shadow: 0 0 12px rgba(0,255,255,0.4);
+    background: rgba(0,255,255,0.1);
+}
+.event-box:active{
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(0,255,255,0.5);
+}
+/* ================= FORM STYLING ================= */
+.container{
+    max-width:900px;
+    margin:40px auto;
+    padding:30px;
+    background:rgba(0,0,0,0.8);
+    border-radius:15px;
+    box-shadow:0 0 25px rgba(0,255,255,0.4);
+}
+input, select, textarea{
+    width:100%;
+    padding:10px;
+    margin:8px 0 15px 0;
+    border-radius:8px;
+    border:none;
+}
+fieldset{
+    margin-bottom:20px;
+    padding:15px;
+    border:1px solid #00ffff;
+    border-radius:10px;
+}
+legend{
+    padding:0 10px;
+    color:#00ffff;
+    font-weight:bold;
+}
+input[type="radio"],
+input[type="checkbox"]{
+    width:auto;
+    margin-right:5px;
+}
+input[type="submit"],
+input[type="reset"]{
+    width:48%;
+    background:#00ffff;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+    border:none;
+    border-radius:8px;
+    padding:10px;
+    transition:0.3s;
+}
+input[type="submit"]:hover,
+input[type="reset"]:hover{
+    background:white;
+}
+/* ================= TABLE ================= */
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+th, td{
+    border:1px solid #00ffff;
+    padding:10px;
+    text-align:center;
+}
+th{
+    background:#00ffff;
+    color:black;
+}
+tr:nth-child(even){
+    background:rgba(255,255,255,0.05);
+}
+tr:hover{
+    background:rgba(0,255,255,0.2);
+}
+/* ================= POPUP ================= */
+.popup{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: linear-gradient(135deg,#00c853,#009624);
+    color: white;
+    padding: 20px 35px;
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(0,255,100,0.6);
+    font-weight: bold;
+    opacity: 0;
+    transition: 0.3s ease;
+    z-index: 9999;
+    text-align:center;
+}
+.popup.show{
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px){
+    .container{
+        width: 95%;
+        margin: 20px auto;
+        padding: 20px;
+    }
+    table{
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+/* ================= INPUT VALIDATION FEEDBACK ================= */
+input.invalid, select.invalid{
+    border:2px solid red;
+}
+input.valid, select.valid{
+    border:2px solid green;
+}
+</style>
+</head>
+<body>
+<canvas id="networkCanvas"></canvas>
+
+<div class="container">
+<div class="logo-container">
+    <img src="https://image2url.com/r2/default/images/1771510568950-2d5a7547-f9fc-4c71-bd8c-25635ac29c78.png" alt="Hackerz Logo" class="logo">
+</div>
+<h1>Hackerz 2k26 - Technical Symposium</h1>
+<p>Join the ultimate coding battle and innovation event!</p>
+
+<h2>Event Information</h2>
+<div class="event-box">
+    <p><strong>📅 Date:</strong> 15 March 2026</p>
+    <p><strong>⏰ Time:</strong> 9:00 AM – 5:00 PM</p>
+    <p><strong>📍 Venue:</strong> NIT Engineering College Auditorium</p>
+    <p><strong>🧑‍💻 Organizer:</strong> Department of Computer Science</p>
+</div>
+
+<h2>Registration Form</h2>
+<form id="registrationForm">
+<fieldset>
+<legend>Personal Information</legend>
+<label>Name:</label>
+<input type="text" id="name">
+
+<label>Email:</label>
+<input type="email" id="email">
+
+<label>Phone Number:</label>
+<input type="tel" id="phone">
+
+<label>Date of Birth:</label>
+<input type="date" id="dob">
+
+<label>Gender:</label><br>
+<input type="radio" name="gender" value="Male"> Male
+<input type="radio" name="gender" value="Female"> Female
+<input type="radio" name="gender" value="Other"> Other
+</fieldset>
+
+<fieldset>
+<legend>Event Selection</legend>
+<label>Select Event:</label>
+<select id="eventSelect">
+<option value="">--Select--</option>
+<option>Hackathon</option>
+<option>UI/UX Workshop</option>
+<option>Build Website with AI Competition</option>
+<option>Cyber Security Workshop</option>
+</select>
+
+<label>Mode of Participation:</label><br>
+<input type="radio" name="mode" value="Online"> Online
+<input type="radio" name="mode" value="Offline"> Offline
+</fieldset>
+
+<fieldset>
+<legend>Additional Details</legend>
+<label>College Name:</label>
+<input type="text" id="college">
+
+<label>Upload ID Proof:</label>
+<input type="file" id="idProof">
+
+<label>Queries:</label>
+<textarea rows="4" id="queries"></textarea>
+</fieldset>
+
+<input type="checkbox" id="confirmCheck"> I confirm that the above details are correct.
+<br><br>
+<input type="submit" value="Submit">
+<input type="reset" value="Reset">
+</form>
+
+<div id="successPopup" class="popup">🎉 Registration Successful!</div>
+
+<h2>Registered Participants</h2>
+<table id="participantsTable">
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Event</th>
+<th>Mode</th>
+</tr>
+</table>
+
+<footer style="margin-top:30px; text-align:center; color:#ccc;">
+<p>📧 Contact: <a href="mailto:nithackerz@college.edu" style="color:#00ffff; text-decoration:none;">nithackerz@college.edu</a></p>
+<p>📞 Help Desk: <a href="tel:+919988887777" style="color:#00ffff; text-decoration:none;">+91 9988887777</a></p>
+<p>© 2026 Hackerz 2K26™ | All Rights Reserved.</p>
+</footer>
+</div>
+
+<script>
+// ================= CANVAS PARTICLE ANIMATION =================
+const canvas = document.getElementById("networkCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+const particleCount = 100;
+let mouse = { x:null, y:null };
+
+class Particle {
+    constructor(x,y){
+        this.x = x || Math.random()*canvas.width;
+        this.y = y || Math.random()*canvas.height;
+        this.size = 2;
+        this.speedX = (Math.random()-0.5)*1.5;
+        this.speedY = (Math.random()-0.5)*1.5;
+    }
+    update(){
+        if(mouse.x && mouse.y){
+            let dx = this.x - mouse.x;
+            let dy = this.y - mouse.y;
+            let distance = Math.sqrt(dx*dx + dy*dy);
+            if(distance < 120){
+                this.x += dx/10;
+                this.y += dy/10;
+            }
+        }
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if(this.x > canvas.width || this.x<0) this.speedX*=-1;
+        if(this.y > canvas.height || this.y<0) this.speedY*=-1;
+    }
+    draw(){
+        ctx.fillStyle = "rgba(0,255,255,0.6)";
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+        ctx.fill();
+    }
+}
+function init(){ particles=[]; for(let i=0;i<particleCount;i++){particles.push(new Particle());} }
+function connect(){
+    for(let a=0;a<particles.length;a++){
+        for(let b=a;b<particles.length;b++){
+            let dx = particles[a].x-particles[b].x;
+            let dy = particles[a].y-particles[b].y;
+            let distance = dx*dx + dy*dy;
+            if(distance<10000){
+                ctx.strokeStyle="rgba(0,255,255,0.2)";
+                ctx.lineWidth=1;
+                ctx.beginPath();
+                ctx.moveTo(particles[a].x,particles[a].y);
+                ctx.lineTo(particles[b].x,particles[b].y);
+                ctx.stroke();
+            }
+        }
+    }
+}
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{p.update(); p.draw();});
+    connect();
+    requestAnimationFrame(animate);
+}
+window.addEventListener("mousemove", e=>{mouse.x=e.x; mouse.y=e.y;});
+window.addEventListener("touchmove", e=>{let touch=e.touches[0]; mouse.x=touch.clientX; mouse.y=touch.clientY;});
+window.addEventListener("resize", e=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight; init();});
+init(); animate();
+
+// ================= FORM INTERACTIVITY =================
+const form = document.getElementById("registrationForm");
+const successPopup = document.getElementById("successPopup");
+const table = document.getElementById("participantsTable");
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    // ================ FIELD VALUES =================
+    const name = document.getElementById("name");
+    const email = document.getElementById("email");
+    const phone = document.getElementById("phone");
+    const dob = document.getElementById("dob");
+    const college = document.getElementById("college");
+    const eventSelect = document.getElementById("eventSelect");
+    const genderRadios = document.getElementsByName("gender");
+    const modeRadios = document.getElementsByName("mode");
+    const confirmCheck = document.getElementById("confirmCheck");
+
+    let valid = true;
+
+    // Reset field highlights
+    [name,email,phone,dob,college,eventSelect].forEach(f=>{f.classList.remove("invalid","valid");});
+
+    // ================ VALIDATION =================
+    if(name.value.trim()===""){ name.classList.add("invalid"); valid=false; }
+    else{name.classList.add("valid");}
+
+    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if(!email.value.match(emailPattern)){ email.classList.add("invalid"); valid=false;}
+    else{email.classList.add("valid");}
+
+    if(!/^\d{10}$/.test(phone.value)){ phone.classList.add("invalid"); valid=false;}
+    else{phone.classList.add("valid");}
+
+    if(dob.value===""){ dob.classList.add("invalid"); valid=false;}
+    else{dob.classList.add("valid");}
+
+    if(college.value.trim()===""){ college.classList.add("invalid"); valid=false;}
+    else{college.classList.add("valid");}
+
+    if(eventSelect.value===""){ eventSelect.classList.add("invalid"); valid=false;}
+    else{eventSelect.classList.add("valid");}
+
+    // Gender validation
+    let gender="";
+    for(let g of genderRadios){if(g.checked){gender=g.value; break;}}
+    if(gender===""){ valid=false; alert("Please select Gender"); }
+
+    // Mode validation
+    let mode="";
+    for(let m of modeRadios){if(m.checked){mode=m.value; break;}}
+    if(mode===""){ valid=false; alert("Please select Mode"); }
+
+    // Checkbox validation
+    if(!confirmCheck.checked){ valid=false; alert("Please confirm the details.");}
+
+    if(!valid) return; // stop if invalid
+
+    // ================ ADD ROW =================
+    const row = table.insertRow();
+    row.insertCell(0).innerText = name.value;
+    row.insertCell(1).innerText = email.value;
+    row.insertCell(2).innerText = phone.value;
+    row.insertCell(3).innerText = eventSelect.value;
+    row.insertCell(4).innerText = mode;
+
+    // ================ SUCCESS MESSAGE =================
+    successPopup.classList.add("show");
+    setTimeout(()=>{ successPopup.classList.remove("show"); }, 3000);
+
+    // ================ RESET FORM =================
+    form.reset();
+    [name,email,phone,dob,college,eventSelect].forEach(f=>{f.classList.remove("invalid","valid");});
+});
+const participantsTable = document.querySelector("table");
+const participantCount = document.getElementById("participantCount");
+
+function updateCount() {
+    // Subtract 1 for the header row
+    participantCount.textContent = `Total Participants: ${participantsTable.rows.length - 1}`;
+}
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    // Collect form data
+    const name = form.querySelector('input[type="text"]').value.trim();
+    const email = form.querySelector('input[type="email"]').value.trim();
+    const phone = form.querySelector('input[type="tel"]').value.trim();
+    const eventSelect = form.querySelector('select').value;
+    const mode = form.querySelector('input[name="mode"]:checked')?.value || '';
+
+    // Check duplicate email
+    let duplicate = false;
+    for(let i=1; i<participantsTable.rows.length; i++){
+        if(participantsTable.rows[i].cells[1].textContent === email){
+            duplicate = true;
+            break;
+        }
+    }
+
+    if(duplicate){
+        alert("This email is already registered!");
+        return;
+    }
+
+    // Add new row
+    const newRow = participantsTable.insertRow();
+    newRow.innerHTML = `
+        <td>${name}</td>
+        <td>${email}</td>
+        <td>${phone}</td>
+        <td>${eventSelect}</td>
+        <td>${mode}</td>
+        <td><button class="deleteBtn">Delete</button></td>
+    `;
+
+    // Delete functionality
+    newRow.querySelector(".deleteBtn").addEventListener("click", function(){
+        newRow.remove();
+        updateCount();
+    });
+
+    // Show success popup
+    popup.classList.add("show");
+    setTimeout(() => popup.classList.remove("show"), 3000);
+
+    // Reset form
+    form.reset();
+
+    // Update participant count
+    updateCount();
+});
+</script>
+</body>
+</html>
